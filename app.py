@@ -37,7 +37,7 @@ if uploaded_file:
         st.subheader("Preview")
         st.dataframe(df.head())
 
-         if st.button("Convert"):
+     if st.button("Convert"):
             # ✅ Ensure folders exist
             (ROOT / "queue").mkdir(exist_ok=True)
             (ROOT / "output").mkdir(exist_ok=True)
