@@ -1,17 +1,20 @@
+import sys
+from pathlib import Path
+
+# ✅ Fix import path FIRST
+ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(ROOT))
+
+# ✅ THEN import your modules
 from converter.processor import process_job
 from converter.dataclasses import JobRecord
+
 import uuid
 from datetime import datetime, UTC
 
 import streamlit as st
 import pandas as pd
-import sys
-from pathlib import Path
-
-# ✅ Make sure your project modules can be imported
-ROOT = Path(__file__).resolve().parent
-sys.path.insert(0, str(ROOT / "src"))
-sys.path.insert(0, str(ROOT))
 
 st.title("AOS Schedule Converter")
 st.write("Upload an Excel file to convert it to EAI format.")
