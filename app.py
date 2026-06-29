@@ -47,7 +47,6 @@ if uploaded_file:
             
             with open(input_path, "wb") as f:
                 f.write(uploaded_file.read())
-``
 
             # ✅ Create job
             job = JobRecord(
