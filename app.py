@@ -37,17 +37,18 @@ if uploaded_file:
         st.subheader("Preview")
         st.dataframe(df.head())
 
-        if st.button("Convert"):
-
-            # ✅ Save file to a real folder (IMPORTANT FIX)
+         if st.button("Convert"):
+            # ✅ Ensure folders exist
+            (ROOT / "queue").mkdir(exist_ok=True)
+            (ROOT / "output").mkdir(exist_ok=True)
+            (ROOT / "reports").mkdir(exist_ok=True)
+        
+            # ✅ Save file
             input_path = ROOT / "queue" / uploaded_file.name
-            
-            # make sure folder exists
-            input_path.parent.mkdir(parents=True, exist_ok=True)
-            
+        
             with open(input_path, "wb") as f:
                 f.write(uploaded_file.read())
-
+        
             # ✅ Create job
             job = JobRecord(
                 id=str(uuid.uuid4()),
@@ -56,13 +57,12 @@ if uploaded_file:
                 file_size=input_path.stat().st_size,
                 timestamp=datetime.now(UTC).isoformat(),
             )
-
-            # ✅ Run real parser
+        
+            # ✅ Run parser
             job = process_job(
                 job,
                 template_override=template if template != "auto" else None
             )
-
             # ✅ Handle result
             if job.processing_status != "completed":
                 st.error("Conversion failed")
