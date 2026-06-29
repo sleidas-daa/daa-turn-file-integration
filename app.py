@@ -39,19 +39,22 @@ if uploaded_file:
 
         if st.button("Convert"):
 
-            import tempfile
-
-            # ✅ Save uploaded file temporarily
-            with tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx") as tmp:
-                tmp.write(uploaded_file.read())
-                temp_path = Path(tmp.name)
+            # ✅ Save file to a real folder (IMPORTANT FIX)
+            input_path = ROOT / "queue" / uploaded_file.name
+            
+            # make sure folder exists
+            input_path.parent.mkdir(parents=True, exist_ok=True)
+            
+            with open(input_path, "wb") as f:
+                f.write(uploaded_file.read())
+``
 
             # ✅ Create job
             job = JobRecord(
                 id=str(uuid.uuid4()),
-                file_name=temp_path.name,
-                file_path=str(temp_path),
-                file_size=temp_path.stat().st_size,
+                file_name=input_path.name,
+                file_path=str(input_path),
+                file_size=input_path.stat().st_size,
                 timestamp=datetime.now(UTC).isoformat(),
             )
 
