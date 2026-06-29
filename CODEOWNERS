@@ -1,0 +1,20 @@
+# Code Ownership
+
+# Default code owners: default owners for everything in the repo
+# E.g. Will require approval from @daauser or @extuser
+# * @daauser @extuser
+
+# Specific code owners for a subdirectory
+# Will require approval from @daauser 
+#/subdir/ @daauser 
+
+# Specific code owners for a file type.
+# Note - The last matching pattern has the most precedence so if a pull request only touches javascript files, only these owners will be requested to review.
+# Will require approval from @daauser 
+#*.js @daauser 
+
+# Example with a specific file
+# Will require approval from the team @daa-mobileapp-approvers
+#/docs/README.md @daa-mobileapp-approvers
+
+* @k-malara-daa @Igor-daa  @sleidas-daa

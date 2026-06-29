@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AOS Schedule Converter</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div>
+        <h1>AOS Schedule Converter</h1>
+        <p class="subtitle">Drop airline schedule files, preview turns, and export AOS CSV.</p>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel">
+        <h2>Upload</h2>
+        <div id="dropzone" class="dropzone" tabindex="0">
+          <div class="dropzone-inner">
+            <svg class="drop-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 16V4m0 0l-4 4m4-4l4 4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/>
+            </svg>
+            <p><strong>Drag & drop files here</strong></p>
+            <p class="muted">or click to browse · .xlsx, .xls, .csv, .txt</p>
+          </div>
+          <input id="file-input" type="file" multiple accept=".xlsx,.xls,.csv,.txt" hidden />
+        </div>
+
+        <div class="controls">
+          <label for="parser-select">Parser</label>
+          <select id="parser-select">
+            <option value="auto">Auto-detect</option>
+            <option value="ryanair">Ryanair</option>
+            <option value="emerald">Emerald Airlines</option>
+            <option value="aer_lingus">Aer Lingus (SSIM)</option>
+          </select>
+        </div>
+
+        <div class="actions">
+          <button id="preview-btn" class="btn btn-secondary" disabled>Preview selected</button>
+          <button id="convert-btn" class="btn btn-primary" disabled>Convert 0 files</button>
+        </div>
+      </section>
+
+      <section class="panel panel-grow">
+        <div class="panel-header">
+          <h2>Queue <span id="queue-count" class="badge">0</span></h2>
+          <button id="clear-all-btn" class="btn btn-ghost btn-sm" disabled>Clear all</button>
+        </div>
+        <ul id="queue-list" class="queue-list empty">
+          <li class="queue-empty">No files queued yet.</li>
+        </ul>
+      </section>
+
+      <section class="panel panel-full">
+        <h2>Preview</h2>
+        <div id="preview-meta" class="preview-meta muted">Select a file and click Preview.</div>
+        <div id="preview-error" class="preview-error hidden"></div>
+        <div class="table-wrap">
+          <table id="preview-table" class="preview-table hidden">
+            <thead id="preview-head"></thead>
+            <tbody id="preview-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <template id="queue-item-template">
+    <li class="queue-item" data-id="">
+      <button type="button" class="queue-select" title="Select for preview">
+        <span class="queue-name"></span>
+        <span class="queue-meta"></span>
+      </button>
+      <button type="button" class="btn-icon delete-btn" title="Remove from queue" aria-label="Remove">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 6h18M8 6V4h8v2m-1 0v14H9V6"/>
+        </svg>
+      </button>
+    </li>
+  </template>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
